@@ -24,11 +24,11 @@ public class Game : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            HandleAlternativeTouch();
+            HandleTouch();
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            HandleTouch();
+            HandleAlternativeTouch();
         }
 
         _spawnProgress += _spawnSpeed * Time.deltaTime;
@@ -39,6 +39,8 @@ public class Game : MonoBehaviour
         }
 
         _enemies.GameUpdate();
+        Physics.SyncTransforms();
+        _board.GameUpdate();
     }
 
     private void SpawnEnemy()
@@ -54,7 +56,14 @@ public class Game : MonoBehaviour
         GameTile tile = _board.GetTile(TouchRay);
         if (tile != null)
         {
-            _board.ToggleWall(tile);
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                _board.ToggleTower(tile);
+            }
+            else
+            {
+                _board.ToggleWall(tile);
+            }
         }
     }
 
