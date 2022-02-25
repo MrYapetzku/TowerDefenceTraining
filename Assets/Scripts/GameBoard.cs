@@ -163,7 +163,7 @@ public class GameBoard : MonoBehaviour
         }
     }
 
-    public void ToggleTower(GameTile tile)
+    public void ToggleTower(GameTile tile, TowerType towerType)
     {
         if (tile.Content.Type == GameTileContentType.Tower)
         {
@@ -173,7 +173,7 @@ public class GameBoard : MonoBehaviour
         }
         else if (tile.Content.Type == GameTileContentType.Empty)
         {
-            tile.Content = _contentFactory.Get(GameTileContentType.Tower);
+            tile.Content = _contentFactory.Get(towerType);
             
             if (FindPaths())
             {
@@ -187,7 +187,7 @@ public class GameBoard : MonoBehaviour
         }
         else if (tile.Content.Type == GameTileContentType.Wall)
         {
-            tile.Content = _contentFactory.Get(GameTileContentType.Tower);
+            tile.Content = _contentFactory.Get(towerType);
             _contentToUpdate.Add(tile.Content);
         }
     }
